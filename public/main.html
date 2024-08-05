@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <title>W3.CSS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+  <link rel="stylesheet" href="/styles.css" />
+  <body>
+    <!-- Sidebar -->
+    <div
+      class="w3-sidebar w3-bar-block w3-border-right"
+      style="display: none"
+      id="mySidebar"
+    >
+      <button onclick="w3_close()" class="w3-bar-item w3-large">&times;</button>
+      <a href="#" class="w3-bar-item w3-button">Cuenta</a>
+      <a href="#" class="w3-bar-item w3-button">Categorias</a>
+      <a href="#" class="w3-bar-item w3-button" style="background-color: rgb(72, 69, 225); color:white;">Subir</a>
+    </div>
+
+    <!-- Page Content -->
+    <div class="navbar">
+      <button class="w3-button w3-xlarge" onclick="w3_open()">☰</button>
+      <div class="w3-container">
+        <a style="text-decoration: none;" href="/">
+          <h1>OpenLib</h1>
+        </a>
+      </div>
+    </div>
+
+    <div class="cuerpo">
+      <div class="titulo">
+        <h1>Ultimos Agregados</h1>
+        <hr />
+      </div>
+      <div class="container">
+        <a href="/peaksawman">
+          <div class="card">
+            <img src="asa.jpg" alt="" />
+            <p>peaksawman</p>
+          </div>
+        </a>
+        <a href="/peaksawman">
+          <div class="card">
+            <img src="asa.jpg" alt="" />
+            <p>peaksawman</p>
+          </div>
+        </a>
+        <a href="/peaksawman">
+          <div class="card">
+            <img src="asa.jpg" alt="" />
+            <p>peaksawman</p>
+          </div>
+        </a>
+        <a href="/peaksawman">
+          <div class="card">
+            <img src="asa.jpg" alt="" />
+            <p>peaksawman</p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <script>
+      function w3_open() {
+        document.getElementById("mySidebar").style.display = "block";
+      }
+
+      function w3_close() {
+        document.getElementById("mySidebar").style.display = "none";
+      }
+    </script>
+  </body>
+</html>

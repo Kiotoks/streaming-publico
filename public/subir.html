@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Pictures with Parameters</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .upload-container {
+            margin: 20px;
+        }
+        .file-input {
+            display: block;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="upload-container">
+        <input type="text" id="username" placeholder="Username">
+        <input type="text" id="title" placeholder="Title">
+        <input type="text" id="type" placeholder="Type">
+        <input type="file" class="file-input" multiple>
+        <button onclick="uploadFiles()">Upload</button>
+    </div>
+
+    <script>
+        function uploadFiles() {
+            const input = document.querySelector('.file-input');
+            const username = document.getElementById('username').value;
+            const title = document.getElementById('title').value;
+            const type = document.getElementById('type').value;
+            const files = input.files;
+            const formData = new FormData();
+
+            formData.append('username', username);
+            formData.append('title', title);
+            formData.append('type', type);
+
+            for (let i = 0; i < files.length; i++) {
+                formData.append('files', files[i]);
+            }
+
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+.navbar {
+  background-color: rgb(72, 69, 225);
+  color: white;
+  display: flex;
+  min-width: 100%;
+}
+.cuerpo {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 100%;
+}
+hr {
+  display: block;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  margin: auto;
+  border-style: inset;
+  border-width: 1px;
+  width: 20em;
+  margin-bottom: 3em;
+}
+
+.container{
+    display: flex;
+    flex-direction: row;
+    max-width: 1024;
+    margin: auto;
+}
+
+.card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgb(72, 69, 225) ;
+    width: 15em;
+    border-radius: 10px;
+    float: left;
+    transition: all .2s;
+    margin: 1em;
+    
+}
+.card:hover {
+  box-shadow: 2px 12px 15px #0000007f;
+  transform: translateY(-5px);
+}
+.card > img{
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5%;
+    max-width: 90%;
+
+}
+.card > input{
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5%;
+    margin-bottom: 5% ;
+}
+
+input{
+    background: #000000;
+    -webkit-border-radius: 8;
+    -moz-border-radius: 8;
+    border-radius: 8px;
+    font-family: Helvetica;
+    color: #ffffff;
+    font-size: 26px;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+}
+input:hover{
+  transform: scale(1.05);
+}
