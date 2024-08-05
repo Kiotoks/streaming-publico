@@ -1,11 +1,13 @@
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
-const fs = require('fs');
+const fs = require('fs-extra');
+const fsog = require('fs');
 require('dotenv').config();
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
 
+index = 0;
 const app = express();
 const PORT = process.env.PORT || 8000;
 
@@ -24,12 +26,30 @@ const client = new MongoClient(mongodbURI, {
 
 const db = client.db(dbName);
 
-// Configuración de Multer para almacenar los archivos subidos en la carpeta 'uploads'
+// Configuración de Multer para almacenar los archivos subidos en la carpeta 'public'
+
+function removeSpacesAndSpecialChars(str) {
+  // Remove spaces and special characters using regular expressions
+  return str.replace(/[\s~`!@#$%^&*(){}\[\];:"'<,.>?\/\\|_+=-]/g, '');
+}
+
+async function getPub(codigo){
+
+  try {
+      const collection = db.collection('publicaciones');
+      const documents = await  collection.findOne({ url: codigo });
+      return documents;
+  } catch (error) {
+      console.error('Error al obtener los documentos:', error);
+      throw error;
+  }
+
+}
 
 const storage = multer.diskStorage({
     destination: async function (req, file, cb) {
-        const folderName = req.body.folder;
-        const folderPath = path.join(__dirname, 'uploads', folderName);
+        const folderName = removeSpacesAndSpecialChars(req.body.title);
+        const folderPath = path.join(__dirname, 'public', folderName);
         
         // Crear la carpeta si no existe
         await fs.ensureDir(folderPath);
@@ -38,8 +58,8 @@ const storage = multer.diskStorage({
     },
     filename: function (req, file, cb) {
         // Obtener el índice del archivo en el array de archivos
-        const index = req.files.indexOf(file);
         const filename = `${index}${path.extname(file.originalname)}`;
+        index ++;
         cb(null, filename);
     }
 });
@@ -48,18 +68,23 @@ const upload = multer({ storage: storage });
 
 app.use(express.static('public'));
 
+app.set("view engine", "ejs");
+app.set("views", __dirname + "/views");
+
 app.post('/upload', upload.array('files'), (req, res) => {
     const username = req.body.username;
     const title = req.body.title;
     const type = req.body.type;
-    const filepaths = req.files.map((file, index) => path.join('uploads', folder, `${index}${path.extname(file.originalname)}`));
+    const url = removeSpacesAndSpecialChars(title)
+    const filepaths = req.body.url;
 
     documento = {
       "username": username,
       "title" : title,
       "type": type,
       "comments" : [],
-      "tags": []
+      "tags": [],
+      "url": url
     }
 
     const collection = db.collection('publicaciones');
@@ -73,38 +98,37 @@ app.post('/upload', upload.array('files'), (req, res) => {
         console.error(error);
         res.status(500).send('Error cargando la noticia.');
     });
-
-    newUpload.save((err, savedUpload) => {
-        if (err) return res.status(500).json({ error: err });
-        res.json({ message: 'Files uploaded and saved successfully!', upload: savedUpload });
-    });
-});
-
-// Ruta para listar y descargar archivos
-app.get('/files', (req, res) => {
-  fs.readdir(path.join(__dirname, 'uploads'), (err, files) => {
-    if (err) {
-      return res.status(500).send('Error al leer la carpeta de archivos');
-    }
-
-    let fileListHtml = '<h1>Archivos disponibles para descargar</h1><ul>';
-    files.forEach(file => {
-      fileListHtml += `<li><a href="/uploads/${file}" download>${file}</a></li>`;
-    });
-    fileListHtml += '</ul>';
-    res.send(fileListHtml);
-  });
 });
 
 app.get('/', (req, res) => { 
-  console.log("muy buenas");
-  res.sendFile(__dirname + '/public/main.html')
+  res.sendFile(__dirname + '/views/main.html')
 });
 
 app.get('/subir', (req, res) => { 
-  res.sendFile(__dirname + '/public/subir.html')
+  res.sendFile(__dirname + '/views/subir.html')
 });
 
+app.get('/post/:cod', (req, res) => {
+  const urlPub = req.params.cod.toString();
+  getPub(urlPub)
+  .then(post =>{
+      console.log(post)
+      const directoryPath = path.join(__dirname, 'public', post.url);
+      console.log(directoryPath);
+      fs.readdir(directoryPath, function (err, files) {
+        params = {
+          info: post,
+          filenames : files
+        }
+        console.log(params);
+        res.render('post', { params: params });
+      });
+  })
+  .catch(error => {
+      console.error('Error en la función principal:', error);
+  });
+  
+});
 
 // Inicia el servidor
 app.listen(PORT, () => {
