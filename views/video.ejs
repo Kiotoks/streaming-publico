@@ -1,5 +1,8 @@
+<!DOCTYPE html>
+<html>
+    <%- include('template/cabecera'); %>
 <body>
-
+    <%- include('template/navbar'); %>
     <section style="width: min(1024px,100%); margin: auto;">
         
         <section class="cuerpo text-justify text-white">
@@ -9,7 +12,10 @@
             <ul style="margin: 0; text-decoration: none;">
                 <% params.filenames.forEach(function(photo) { %>
                     <li>
-                    <img class="" id="img" src="/<%= params.info.url%>/<%= photo%>">
+                        <video width="600" controls>
+                            <source src="/<%= params.info.url%>/<%= photo%>" type="video/mp4">
+                            Tu navegador no soporta la etiqueta de video.
+                        </video>
                     </li>
                 <% }); %>
             </ul>

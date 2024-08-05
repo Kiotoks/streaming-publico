@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <%- include('template/cabecera'); %>
+  <body>
+    <%- include('template/navbar'); %>
+    <div class="cuerpo">
+      <div class="titulo">
+        <h1>Ultimos Agregados</h1>
+        <hr />
+      </div>
+      <div class="container">
+
+        <a href="/peaksawman">
+          <div class="card">
+            <img src="asa.jpg" alt="" />
+            <p>peaksawman</p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <script>
+      function w3_open() {
+        document.getElementById("mySidebar").style.display = "block";
+      }
+
+      function w3_close() {
+        document.getElementById("mySidebar").style.display = "none";
+      }
+    </script>
+  </body>
+</html>

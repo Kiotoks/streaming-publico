@@ -29,7 +29,6 @@ const db = client.db(dbName);
 // Configuración de Multer para almacenar los archivos subidos en la carpeta 'public'
 
 function removeSpacesAndSpecialChars(str) {
-  // Remove spaces and special characters using regular expressions
   return str.replace(/[\s~`!@#$%^&*(){}\[\];:"'<,.>?\/\\|_+=-]/g, '');
 }
 
@@ -101,11 +100,11 @@ app.post('/upload', upload.array('files'), (req, res) => {
 });
 
 app.get('/', (req, res) => { 
-  res.sendFile(__dirname + '/views/main.html')
+  res.render('main')
 });
 
 app.get('/subir', (req, res) => { 
-  res.sendFile(__dirname + '/views/subir.html')
+  res.render('subir')
 });
 
 app.get('/post/:cod', (req, res) => {
@@ -121,11 +120,11 @@ app.get('/post/:cod', (req, res) => {
           filenames : files
         }
         console.log(params);
-        res.render('post', { params: params });
+        res.render(post.type, { params: params });
       });
   })
   .catch(error => {
-      console.error('Error en la función principal:', error);
+      console.error('Error en la funcion de mostrar post:', error);
   });
   
 });

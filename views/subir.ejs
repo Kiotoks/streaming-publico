@@ -1,23 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload Pictures with Parameters</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        .upload-container {
-            margin: 20px;
-        }
-        .file-input {
-            display: block;
-            margin-bottom: 10px;
-        }
-    </style>
-</head>
+<html>
+    <%- include('template/cabecera'); %>
 <body>
+    <%- include('template/navbar'); %>
     <div class="upload-container">
         <input type="text" id="username" placeholder="Username">
         <input type="text" id="title" placeholder="Title">

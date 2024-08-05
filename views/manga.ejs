@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <%- include('template/cabecera'); %>
+<body>
+    <%- include('template/navbar'); %>
+    <section style="width: min(1024px,100%); margin: auto;">
+        
+        <section class="cuerpo text-justify text-white">
+            <h2 style="margin-top: 1vh;"><%= params.info.title %></h2>
+            <hr style="background-color: rgb(151, 71, 255); height: 1px;">
+
+            <ul style="margin: 0; text-decoration: none;">
+                <% params.filenames.forEach(function(photo) { %>
+                    <li>
+                    <img class="" id="img" src="/<%= params.info.url%>/<%= photo%>">
+                    </li>
+                <% }); %>
+            </ul>
+
+            <p>proximamente habran comentarios</p>
+        </section>
+        
+    </section>
+
+</body>
+</html>
