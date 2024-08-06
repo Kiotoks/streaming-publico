@@ -26,7 +26,22 @@ hr {
     flex-direction: row;
     max-width: 1024;
     margin: auto;
+    @media only screen and (max-width: 768px) { 
+      flex-direction: column;
+      max-width: 100vw;
+    }
 }
+
+.mangaImg{
+  max-width: 95%;
+  margin: 0.5em;
+}
+.manga{
+  display: flex;
+  flex-direction: column;
+  align-items: center
+}
+
 
 .card{
     display: flex;
@@ -59,7 +74,7 @@ hr {
 }
 
 input{
-    background: #000000;
+    background: #dfdfdf;
     -webkit-border-radius: 8;
     -moz-border-radius: 8;
     border-radius: 8px;
@@ -68,7 +83,12 @@ input{
     font-size: 26px;
     padding: 10px 20px 10px 20px;
     text-decoration: none;
+    margin: 1em;
 }
 input:hover{
   transform: scale(1.05);
+}
+
+li{
+  list-style-type: none;
 }

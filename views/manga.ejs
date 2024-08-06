@@ -3,16 +3,16 @@
     <%- include('template/cabecera'); %>
 <body>
     <%- include('template/navbar'); %>
-    <section style="width: min(1024px,100%); margin: auto;">
+    <section class="manga" style="width: min(1024px,95vw); margin: auto;">
         
-        <section class="cuerpo text-justify text-white">
+        <section class="cuerpo">
             <h2 style="margin-top: 1vh;"><%= params.info.title %></h2>
-            <hr style="background-color: rgb(151, 71, 255); height: 1px;">
+            <hr>
 
-            <ul style="margin: 0; text-decoration: none;">
+            <ul style="margin: 0; text-decoration: none; padding: 0;">
                 <% params.filenames.forEach(function(photo) { %>
                     <li>
-                    <img class="" id="img" src="/<%= params.info.url%>/<%= photo%>">
+                    <img class="mangaImg" id="img" src="/<%= params.info.url%>/<%= photo%>">
                     </li>
                 <% }); %>
             </ul>
@@ -21,6 +21,6 @@
         </section>
         
     </section>
-
+    <%- include('template/sidebarScript'); %>
 </body>
 </html>

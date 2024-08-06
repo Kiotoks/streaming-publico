@@ -9,7 +9,7 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 
 index = 0;
 const app = express();
-const PORT = process.env.PORT || 8000;
+const PORT = 80;
 
 const mongodbURI = process.env.MONGODB_URI;
 const dbName = 'openlib';
@@ -32,6 +32,26 @@ function removeSpacesAndSpecialChars(str) {
   return str.replace(/[\s~`!@#$%^&*(){}\[\];:"'<,.>?\/\\|_+=-]/g, '');
 }
 
+async function getLastFivePosts(multiplier){
+  try {
+      
+      const pipeline = [
+        {
+            $skip: multiplier * 5, // Skip items for previous pages
+        },
+        {
+            $limit: 5, // Limit the number of items on the current page
+        },
+      ];
+      const collection = db.collection('publicaciones');
+      const itemsOnPage = await collection.aggregate(pipeline).toArray();
+      return itemsOnPage; 
+  } catch (error) {
+      console.error('Error en getLastFivePosts():', error);
+      throw error;
+  }
+}
+
 async function getPub(codigo){
 
   try {
@@ -39,7 +59,7 @@ async function getPub(codigo){
       const documents = await  collection.findOne({ url: codigo });
       return documents;
   } catch (error) {
-      console.error('Error al obtener los documentos:', error);
+      console.error('Error en getPub():', error);
       throw error;
   }
 
@@ -95,12 +115,22 @@ app.post('/upload', upload.array('files'), (req, res) => {
     })
     .catch(error => {
         console.error(error);
-        res.status(500).send('Error cargando la noticia.');
+        res.status(500).send('Error cargando la publicacion.');
     });
 });
 
-app.get('/', (req, res) => { 
-  res.render('main')
+app.get('/', (req, res) => {
+  getLastFivePosts(0)
+  .then(response => {
+    console.log(response);
+    
+      res.render('main', { params: response })
+  })
+  .catch(error => {
+      console.error(error);
+      res.status(500).send('Error cargando la noticia.');
+  });
+ 
 });
 
 app.get('/subir', (req, res) => { 

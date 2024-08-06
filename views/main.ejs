@@ -9,24 +9,21 @@
         <hr />
       </div>
       <div class="container">
-
-        <a href="/peaksawman">
-          <div class="card">
-            <img src="asa.jpg" alt="" />
-            <p>peaksawman</p>
-          </div>
-        </a>
+        
+          <% params.forEach(function(post) { %>
+              <a href="/post/<%= post.url%>">
+                <div class="card">
+                  <img src="<%= post.type%>.jpg" alt="" />
+                  <p><%= post.title%></p>
+                  <p><%= post.type%></p>
+                </div>
+              </a>
+              </li>
+          <% }); %>
+        
       </div>
     </div>
 
-    <script>
-      function w3_open() {
-        document.getElementById("mySidebar").style.display = "block";
-      }
-
-      function w3_close() {
-        document.getElementById("mySidebar").style.display = "none";
-      }
-    </script>
+    <%- include('template/sidebarScript'); %>
   </body>
 </html>

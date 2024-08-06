@@ -3,12 +3,15 @@
     <%- include('template/cabecera'); %>
 <body>
     <%- include('template/navbar'); %>
-    <div class="upload-container">
-        <input type="text" id="username" placeholder="Username">
-        <input type="text" id="title" placeholder="Title">
-        <input type="text" id="type" placeholder="Type">
+    <div class="container">
+        <input type="text" id="username" placeholder="Usuario">
+        <input type="text" id="title" placeholder="Titulo">
+        <select name="type" id="type">
+            <option value="manga" selected>Manga/Fotos</option>
+            <option value="video">Video</option>
+          </select>
         <input type="file" class="file-input" multiple>
-        <button onclick="uploadFiles()">Upload</button>
+        <button onclick="uploadFiles()">Publicar</button>
     </div>
 
     <script>
@@ -41,5 +44,6 @@
             });
         }
     </script>
+    <%- include('template/sidebarScript'); %>
 </body>
 </html>
