@@ -1,8 +1,9 @@
 .navbar {
-  background-color: rgb(72, 69, 225);
+  background-color: #15202b;
   color: white;
   display: flex;
   min-width: 100%;
+  border-bottom:#fff 1px solid ;
 }
 .cuerpo {
   display: flex;
@@ -32,61 +33,257 @@ hr {
     }
 }
 
-.mangaImg{
-  max-width: 95%;
-  margin: 0.5em;
+/* General Reset */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #15202b; /* Twitter dark theme */
+  color: #fff;
 }
-.manga{
+
+/* Header */
+.header {
+  padding: 15px;
+  text-align: center;
+  background-color: #192734;
+  border-bottom: 1px solid #38444d;
+}
+
+.postscontainer{
+  max-width: 27%;
   display: flex;
   flex-direction: column;
-  align-items: center
+  margin: auto;
+  border-right:#fff 1px solid ;
+  border-left:#fff 1px solid ;
+  min-height: 100%;
+}
+.post{
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  border-bottom:#fff 1px solid ;
+  text-align: left;
+}
+
+.usuario{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+}
+.nombre{
+  margin-left: 1em;
+  font-weight: bold;
+}
+/* Gallery */
+/* General Styles for Gallery Items */
+.gallery-item {
+  width: 100%; /* Ensures items fill their grid cell */
+  aspect-ratio: 1; /* Makes items square */
+  object-fit: cover; /* Ensures the image fits within the square */
+  border-radius: 8px; /* Adds rounded corners */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  max-height: 300px; /* Optional: Set a maximum height to prevent overly large images */
+}
+.icon{
+  width: 3em; /* Ensures items fill their grid cell */
+  height: 3em; 
+  aspect-ratio: 1; /* Makes items square */
+  object-fit: cover; /* Ensures the image fits within the square */
+  border-radius: 50%; /* Adds rounded corners *//* Optional: Set a maximum height to prevent overly large images */
+}
+
+.gallery-item:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+/* Gallery */
+.gallery {
+  display: grid;
+  gap: 10px;
+  padding: 10px;
+  justify-content: center; /* Center align content */
+  grid-template-columns: repeat(2, 1fr); /* 2 columns */
+  max-height: 800px; /* Adjust to the maximum height you want */
+  overflow: hidden; /* Hide any content that overflows */
+  position: relative;
+}
+
+/* General Styles for Gallery Items */
+.gallery-item {
+  width: 100%; /* Ensures items fill their grid cell */
+  aspect-ratio: 1; /* Makes items square */
+  object-fit: cover; /* Ensures the image fits within the square */
+  border-radius: 8px; /* Adds rounded corners */
+  position: relative; /* For positioning pseudo-element */
+}
+
+.gallery-item img {
+  width: 100%; /* Ensures the image fills the container */
+  height: 100%;
+  border-radius: 8px; /* Adds rounded corners to the image */
+}
+.gallery-item video {
+  width: 100%; /* Ensures the image fills the container */
+  border-radius: 8px; /* Adds rounded corners to the image */
+}
+
+/* Layouts Based on Item Count */
+.gallery.one-item {
+  grid-template-columns: 1fr;
+}
+
+.gallery.two-items {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.gallery.three-items {
+  grid-template-columns: repeat(2, 1fr); /* First row has two images */
+  grid-auto-rows: auto;
+}
+
+.gallery.three-items .gallery-item:nth-child(3) {
+  grid-column: span 2; /* Third image spans the full width of the row */
+  justify-self: center; /* Center it horizontally */
+}
+
+.gallery.four-items {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* Hide items beyond the 4th one */
+.gallery.four-items .gallery-item:nth-child(n+5) {
+  display: none;
+}
+
+/* Show "+" on top of the 4th image */
+.gallery.four-items .gallery-item:nth-child(4)::after {
+  content: "+"; /* The plus sign */
+  position: absolute;
+  top: 40%; /* Adjust position as needed */
+  left: 40%;
+  font-size: 30px;
+  color: white;
+  font-weight: bold;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  border-radius: 50%;
+  padding: 5px;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  cursor: pointer;
 }
 
 
-.card{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background-color: rgb(72, 69, 225) ;
-    width: 15em;
-    border-radius: 10px;
-    float: left;
-    transition: all .2s;
-    margin: 1em;
-    
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9); /* Full dark overlay */
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
-.card:hover {
-  box-shadow: 2px 12px 15px #0000007f;
-  transform: translateY(-5px);
-}
-.card > img{
-    margin-left: auto;
-    margin-right: auto;
-    padding: 5%;
-    max-width: 90%;
 
+/* Modal Content Container */
+.modal-content-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  max-width: 800px;
 }
-.card > input{
-    margin-left: auto;
-    margin-right: auto;
-    padding: 5%;
-    margin-bottom: 5% ;
+
+/* Modal Image */
+.modal-content {
+  max-width: 100%;
+  max-height: 80vh;
+  border-radius: 8px;
 }
+
+/* Close Button */
+.close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 30px;
+  color: #fff;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.close:hover {
+  color: #22374b; /* Twitter blue */
+}
+
+/* Navigation Buttons */
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 40px;
+  color: #fff;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  padding: 5px 10px;
+  transition: color 0.3s ease;
+}
+
+.prev {
+  left: 10px;
+}
+
+.next {
+  right: 10px;
+}
+
+.prev:hover, .next:hover {
+  color: #1da1f2; /* Twitter blue */
+}
+
+/* Mobile Responsive */
+@media (max-width: 600px) {
+  .gallery-item {
+      width: 150px;
+      height: 150px;
+  }
+
+  .modal-content-container {
+      width: 100%;
+  }
+
+  .prev, .next {
+      font-size: 30px;
+  }
+}
+
 
 input{
-    background: #dfdfdf;
-    -webkit-border-radius: 8;
-    -moz-border-radius: 8;
+    background: #22374b;
     border-radius: 8px;
+    border: 0;
     font-family: Helvetica;
     color: #ffffff;
-    font-size: 26px;
-    padding: 10px 20px 10px 20px;
+    font-size: 12px;
     text-decoration: none;
     margin: 1em;
 }
 input:hover{
   transform: scale(1.05);
+}
+input:enabled{
+  border: 0;
 }
 
 li{

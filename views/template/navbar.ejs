@@ -1,21 +1,40 @@
- <!-- Sidebar -->
- <div
- class="w3-sidebar w3-bar-block w3-border-right"
- style="display: none"
- id="mySidebar"
+<!-- Sidebar -->
+<div
+  class="w3-sidebar w3-bar-block w3-border-right"
+  style="display: none"
+  id="mySidebar"
 >
- <button onclick="w3_close()" class="w3-bar-item w3-large">&times;</button>
- <a href="#" class="w3-bar-item w3-button">Cuenta</a>
- <a href="#" class="w3-bar-item w3-button">Categorias</a>
- <a href="/subir" class="w3-bar-item w3-button" style="background-color: rgb(72, 69, 225); color:white;">Subir</a>
+  <button onclick="w3_close()" class="w3-bar-item w3-large">&times;</button>
+  
+  <% if (nombre) { %>
+    <!-- If 'nombre' exists, display the name and logout link -->
+    <a href="/user/<%= nombre %>" class="w3-bar-item w3-button" style="color: #15202b"><%= nombre %></a>
+    <a href="/logout" class="w3-bar-item w3-button" style="color: #15202b">Logout</a>
+    <a href="/subir" class="w3-bar-item w3-button" style="background-color:#15202b; color:white;">Subir</a>
+  <% } else { %>
+    <!-- If 'nombre' does not exist, display the login link -->
+    <a href="/login" class="w3-bar-item w3-button" style="color: #15202b">Login</a>
+    <a href="/login" class="w3-bar-item w3-button" style="background-color:#15202b; color:white;">Subir</a>
+  <% } %>
 </div>
 
 <!-- Page Content -->
-<div class="navbar">
- <button class="w3-button w3-xlarge" onclick="w3_open()">☰</button>
- <div class="w3-container">
-   <a style="text-decoration: none;" href="/">
-     <h1>OpenLib</h1>
-   </a>
- </div>
-</div> 
+<div class="navbar" style="display: flex; align-items: center; justify-content: space-between;">
+  <!-- Sidebar button -->
+  <button class="w3-button w3-xlarge" onclick="w3_open()">☰</button>
+  
+  <!-- Navbar content -->
+  <div style="display: flex; align-items: center; flex-grow: 1;">
+    <a style="text-decoration: none;" href="/">
+      <h1>NoTwitter</h1>
+    </a>
+  </div>
+  
+  <!-- Icon -->
+  <% if (nombre) { %>
+    <img src="/icons/<%= nombre %>.jpg" alt="icono" class="icon" style="height: 40px; margin-left: auto;margin-right: 2em;">
+  <% } else { %>
+    <img src="/icons/default.jpg" alt="icono" class="icon" style="height: 40px; margin-left: auto; margin-right: 2em;">
+  <% } %>
+</div>
+

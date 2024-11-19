@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <%- include('template/cabecera'); %>
+<body>
+    <%- include('template/navbar', {nombre: ""}); %>
+    <div class="postscontainer" style="margin-top: 30vh; border-top: #fff 1px solid ;">
+        <h1>Registrarse</h1>
+        <div class="post">
+        <p>Nombre de usuario</p>
+        <input type="text" id="username" placeholder="Usuario"required>
+        <p>Contraseña</p>
+        <input type="password" id="password" name="password" required>
+        <p>Foto de perfil</p>
+        <input type="file" class="file-input" >
+        <button onclick="uploadFiles()">Crear Usuario</button>
+    </div>
+    </div>
+    <script>
+        function uploadFiles() {
+            const input = document.querySelector('.file-input');
+            const username = document.getElementById('username').value;
+            const contra = document.getElementById('password').value;
+
+            if (contra !== "" && username !== ""){
+
+                const files = input.files;
+                const formData = new FormData();
+
+                formData.append('username', username);
+                formData.append('contra', contra);
+
+                for (let i = 0; i < files.length; i++) {
+                    formData.append('files', files[i]);
+                }
+
+                fetch('/register', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    window.location.href = '/'; 
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+            }
+        }
+    </script>
+    <%- include('template/sidebarScript'); %>
+</body>
+</html>

@@ -5,14 +5,20 @@
     <%- include('template/navbar', {nombre: user}); %>
     <div class="cuerpo">
       <div class="postscontainer">
+        <div class="post">
+          <div class="usuario" >
+            <img src="/icons/<%= usuVista %>.jpg" alt="icono" class="icon" style="height: 5em; width: 5em;">
+            <p class="nombre" style="font-size: 3em;"><%= usuVista %></p>
+          </div>
+        </div>
         <% params.forEach(function(post) { %>
         <a href="/post/<%= post.info.url %>"></a>
           <div class="post">
             <!-- User information -->
-            <a href="/user/<%= post.info.username %>" class="usuario">
-            <img src="/icons/<%= post.info.username %>.jpg" alt="icono" class="icon">
-            <p class="nombre"><%= post.info.username %></p>
-            </a>
+              <a href="/user/<%= post.info.username %>" class="usuario">
+              <img src="/icons/<%= post.info.username %>.jpg" alt="icono" class="icon">
+              <p class="nombre"><%= post.info.username %></p>
+              </a>
             <!-- Post title -->
             <p class="post-title"><%= post.info.title %></p>
             <!-- Post gallery (derived images or videos based on type) -->
